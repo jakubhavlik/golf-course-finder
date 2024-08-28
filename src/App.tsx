@@ -26,7 +26,7 @@ function App() {
 
   const [remainingCourses, setRemainingCourses] = useState<number[]>([]);
 
-  const { data: distancesData, isLoading: distancesIsLoading } = useGetDistance({
+  const { data: distancesData } = useGetDistance({
     from: { latitude: coords?.latitude, longitude: coords?.longitude },
     to: {
       latitude: data?.elements.filter(t => t.id === currentlyLoadingCourse)[0]?.tags?.lat,
