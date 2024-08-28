@@ -40,7 +40,7 @@ function App() {
     setLoadedCourses(previous => {
       if (currentlyLoadingCourse && distancesData?.routes[0].distance) {
         previous.set(currentlyLoadingCourse, distancesData.routes[0].distance);
-        setRemainingCourses(previous => previous.filter(t => t !== currentlyLoadingCourse));
+        setRemainingCourses(remaining => remaining.filter(t => t !== currentlyLoadingCourse));
         return previous;
       } else {
         return previous;
