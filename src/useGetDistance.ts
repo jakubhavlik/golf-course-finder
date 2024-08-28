@@ -29,7 +29,7 @@ export const useGetDistance = (props: UsetGetGolfCoursesProps) => {
             props.to.longitude,
         ],
         async () => {
-            await sleep(1500);
+            await sleep(1000);
             return await axios.get<DistanceResponse>(`http://router.project-osrm.org/route/v1/driving/${props.from.longitude},${props.from.latitude};${props.to.longitude},${props.to.latitude}?overview=false`).then((response) => response.data);
         },
         {

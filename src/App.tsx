@@ -7,6 +7,8 @@ import { useGetDistance } from './useGetDistance';
 
 function App() {
 
+  const [radius, setRadius] = useState<number>(50000);
+
   const { coords, isGeolocationAvailable, isGeolocationEnabled } =
     useGeolocated({
       positionOptions: {
@@ -15,9 +17,10 @@ function App() {
       userDecisionTimeout: 5000,
     });
 
-  const { data, isLoading } = useGetGolfCourses({ center: { latitude: coords?.latitude, longitude: coords?.longitude }, distance: 50000 });
+  const { data, isLoading } = useGetGolfCourses({ center: { latitude: coords?.latitude, longitude: coords?.longitude }, distance: radius });
 
   const [currentlyLoadingCourse, setCurrentlyLoadingCourse] = useState<number | null>(null);
+
 
   const [loadedCourses, setLoadedCourses] = useState<Map<number, number>>(new Map());
 
@@ -65,7 +68,7 @@ function App() {
     <div>Geolocation is not enabled</div>
   ) : coords ? (
     <div>
-      <table>
+      {/* <table>
         <tbody>
           <tr>
             <td>latitude</td>
@@ -76,8 +79,16 @@ function App() {
             <td>{coords.longitude}</td>
           </tr>
         </tbody>
-      </table>
+      </table> */}
       <h1>Closest golf courses</h1>
+      <label>
+        Radius (km):
+        <input
+          type="number"
+          value={radius/1000}
+          onChange={(e) => setRadius(parseInt(e.target.value) * 1000)}
+        />
+      </label>
       {isLoading && !!data ? (
         <div>Loading the golf courses&hellip;</div>
       ) : (
@@ -86,8 +97,9 @@ function App() {
             <tr>
               <th>Name</th>
               <th>Holes</th>
-              <th>Location</th>
-              <th>Distance</th>
+              {/* <th>Location</th> */}
+              <th>Description</th>
+              <th>Driving distance</th>
             </tr>
           </thead>
           <tbody>
@@ -95,10 +107,11 @@ function App() {
               <tr key={element.id}>
                 <td>{element.tags.name}</td>
                 <td>{element.tags.holes} holes</td>
-                <td>{element.tags.lat}, {element.tags.lon}</td>
+                <td>{element.tags.description}</td>
+                {/* <td>{element.tags.lat}, {element.tags.lon}</td> */}
                 <td>
                   {loadedCourses.has(element.id) ? (
-                    <>{loadedCourses.get(element.id)} meters</>
+                    <>{Math.round(loadedCourses.get(element.id)!!/1000)} km</>
                   ) : <div>Loading&hellip;</div>}
                 </td>
               </tr>
