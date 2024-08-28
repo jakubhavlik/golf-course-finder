@@ -31,7 +31,7 @@ function App() {
     to: {
       latitude: data?.elements.filter(t => t.id === currentlyLoadingCourse)[0]?.tags?.lat,
       longitude: data?.elements.filter(t => t.id === currentlyLoadingCourse)[0]?.tags?.lon,
-     }
+    }
   });
 
   useEffect(() => {
@@ -46,7 +46,7 @@ function App() {
         return previous;
       }
     }
-     );
+    );
   }, [distancesData]);
 
 
@@ -59,7 +59,7 @@ function App() {
   useEffect(() => {
     if (data && data.elements.length > 0) {
       setRemainingCourses(data.elements.map(t => t.id).filter(t => !loadedCourses.has(t)));
-      }
+    }
   }, [data]);
 
   return !isGeolocationAvailable ? (
@@ -68,7 +68,7 @@ function App() {
     <div>Geolocation is not enabled</div>
   ) : coords ? (
     <div>
-      {/* <table>
+      <table>
         <tbody>
           <tr>
             <td>latitude</td>
@@ -79,13 +79,13 @@ function App() {
             <td>{coords.longitude}</td>
           </tr>
         </tbody>
-      </table> */}
+      </table>
       <h1>Golf courses</h1>
       <label>
         Radius (km):
         <input
           type="number"
-          value={radius/1000}
+          value={radius / 1000}
           onChange={(e) => setRadius(parseInt(e.target.value) * 1000)}
         />
       </label>
@@ -97,8 +97,8 @@ function App() {
             <tr>
               <th>Name</th>
               <th>Holes</th>
-              {/* <th>Location</th> */}
               <th>Description</th>
+              <th>Location</th>
               <th>Driving distance</th>
             </tr>
           </thead>
@@ -108,10 +108,10 @@ function App() {
                 <td>{element.tags.name}</td>
                 <td>{element.tags.holes} holes</td>
                 <td>{element.tags.description}</td>
-                {/* <td>{element.tags.lat}, {element.tags.lon}</td> */}
+                <td>{element.tags.lat}, {element.tags.lon}</td>
                 <td>
                   {loadedCourses.has(element.id) ? (
-                    <>{Math.round(loadedCourses.get(element.id)!!/1000)} km</>
+                    <>{Math.round(loadedCourses.get(element.id)!! / 1000)} km</>
                   ) : <div>Loading&hellip;</div>}
                 </td>
               </tr>
@@ -120,7 +120,12 @@ function App() {
         </table>
 
       )}
+      <footer>
+        <p>Author: Jakub Havlík</p>
+        <p><a href="https://github.com/jakubhavlik/golf-course-finder/">https://github.com/jakubhavlik/golf-course-finder/</a></p>
+      </footer>
     </div>
+
   ) : (
     <div>Getting the location data&hellip; </div>
   );
