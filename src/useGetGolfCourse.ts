@@ -29,7 +29,7 @@ export const useGetGolfCourses = (props: UsetGetGolfCoursesProps) => {
             props.distance,
         ],
         async () => {
-            return await axios.post<CoursesResponse>("http://overpass-api.de/api/interpreter", `
+            return await axios.post<CoursesResponse>("https://overpass-api.de/api/interpreter", `
         [out:json][timeout:25];
 
         (

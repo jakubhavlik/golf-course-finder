@@ -30,7 +30,7 @@ export const useGetDistance = (props: UsetGetGolfCoursesProps) => {
         ],
         async () => {
             await sleep(1000);
-            return await axios.get<DistanceResponse>(`http://router.project-osrm.org/route/v1/driving/${props.from.longitude},${props.from.latitude};${props.to.longitude},${props.to.latitude}?overview=false`).then((response) => response.data);
+            return await axios.get<DistanceResponse>(`https://router.project-osrm.org/route/v1/driving/${props.from.longitude},${props.from.latitude};${props.to.longitude},${props.to.latitude}?overview=false`).then((response) => response.data);
         },
         {
             refetchOnWindowFocus: false,
