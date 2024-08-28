@@ -80,7 +80,7 @@ function App() {
           </tr>
         </tbody>
       </table> */}
-      <h1>Closest golf courses</h1>
+      <h1>Golf courses</h1>
       <label>
         Radius (km):
         <input
