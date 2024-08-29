@@ -103,7 +103,13 @@ function App() {
             </tr>
           </thead>
           <tbody>
-            {data?.elements.map((element) => (
+            {data?.elements?.sort((a, b) => {
+                  // Get distances in kilometers
+                  const distanceA = loadedCourses.has(a.id) ? loadedCourses.get(a.id)! / 1000 : Number.MAX_VALUE;
+                  const distanceB = loadedCourses.has(b.id) ? loadedCourses.get(b.id)! / 1000 : Number.MAX_VALUE;
+                  // Sort by distance, closest first
+                  return distanceA - distanceB;
+                }).map((element) => (
               <tr key={element.id}>
                 <td>{element.tags.name}</td>
                 <td>{element.tags.holes} holes</td>
